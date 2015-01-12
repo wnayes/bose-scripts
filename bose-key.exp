@@ -1,0 +1,25 @@
+#!/usr/bin/expect
+
+set timeout 5
+
+# Send a keystroke to a networked Bose device.
+
+# Known keystrokes:
+#   volume_down
+#   volume_up
+#   mute
+#   preset_# (1 - 6)
+#   prev
+#   next
+#   play
+#   stop
+#   pause
+
+set keyarg [lindex $argv 0]
+
+spawn telnet $::env(BOSE_ADDR) 17000
+expect -ex "->"
+send "key $keyarg\r"
+expect "OK"
+
+exit
